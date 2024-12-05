@@ -1,0 +1,48 @@
+.result {
+    display: flex;
+    flex: 1;
+    height: 100vh;
+    justify-content: center;
+    align-items: flex-start;
+    padding: $spacing-medium;
+    &__card {
+        width: 70%;
+        border: 1px solid lightgray;
+        box-shadow: $box-shadow;
+        padding: $spacing-medium;
+        display: flex;
+        border-radius: $rounded-medium;
+        justify-content: center;
+        align-items: center;
+        @include screen-size("lg") {
+         width: 100%;
+         flex-direction: column;
+         margin: $spacing-small;
+        }
+        &__image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            figure {
+                img {
+                    height: 30vh;
+                }
+            }
+            p {
+                background-color: $secondary-color;
+                text-align: center;
+                width: fit-content;
+                padding: $spacing-tiny $spacing-large;
+                border-radius: $rounded-medium;
+                color: white;
+                font-weight: bold;
+                text-transform: capitalize;
+            }
+        }
+        p {
+            font-size: 1.3em;
+            padding: $spacing-small;
+        }
+    }
+}
