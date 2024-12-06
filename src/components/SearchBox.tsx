@@ -2,21 +2,21 @@ import { PokemonsListItem } from "../interfaces/PokemonsListItem";
 import { FilteredList } from "./FilteredList";
 
 interface SearchBoxProps {
-  search: (event: React.SyntheticEvent<HTMLInputElement>) => void;
-  clickResult: (event: React.SyntheticEvent, url: string) => void;
-  results?: PokemonsListItem[];
+  handlePokemonSearch: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  handlePokemonClick: (event: React.SyntheticEvent, url: string) => void;
+  results: PokemonsListItem[]| null;
 }
 
-export const SearchBox = ({ search, results, clickResult }: SearchBoxProps) => {
+export const SearchBox = ({ handlePokemonSearch, results, handlePokemonClick }: SearchBoxProps) => {
   return (
     <nav className="nav">
-      <figure className="nav__logo"><img src="../assets/pokemon.svg" alt="logo" /></figure>
-      <form action="" className="nav__search-bar">
-        <input type="text" onChange={(event) => search(event)}  placeholder="search by name"/>
+      <div className="logo"><img src="../assets/pokemon.svg" alt="logo" /></div>
+      <div className="search">
+        <input type="text" onChange={(event) => handlePokemonSearch(event)}  placeholder="search by name"/>
         {results && results.length > 0 && (
-          <FilteredList results={results} clickResult={(event, url) => clickResult(event, url)} />
+          <FilteredList results={results} handlePokemonClick={(event, url) => handlePokemonClick(event, url)} />
         )}
-      </form>
+      </div>
     </nav>
   );
 };

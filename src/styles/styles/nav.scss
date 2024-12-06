@@ -1,63 +1,29 @@
 .nav {
-    display: flex;
-    width: 99%;
-    background-color: $primary-color;
-    align-items: center;
-    box-shadow: $box-shadow;
-    padding: $spacing-tiny;
-    gap: $spacing-small;
-    &__logo {
-        margin: 0;
-        @include screen-size("sm") {
-           display: none;
-        }
-        img {
-            height: 50px;
-        }
+  display: flex;
+  width: 99%;
+  background-color: $primary-color;
+  align-items: center;
+  box-shadow: $box-shadow;
+  padding: $spacing-tiny;
+  gap: $spacing-small;
+  .logo {
+    margin: 0;
+    @include screen-size("sm") {
+      display: none;
     }
-    &__search-bar {
-        width: 95%;
-        position: relative;
-        input {
-            width: 95%;
-            padding: $spacing-tiny;
-            border: none;
-            border-radius: $rounded-tiny;
-            font-size: 1.2em;
-        }
-        
+    img {
+      height: 50px;
     }
-    &__filtered-list {
-        &__container {
-            width: 96%;
-            background-color: white;
-            box-shadow: $box-shadow;
-            position: absolute;
-            top: $spacing-medium + 20px;
-            border-radius: $rounded-small;
-        }
-        &__list {
-            list-style: none;
-            display:  flex;
-            flex-direction: column;
-            gap: $spacing-small;
-            &__item {
-                button {
-                    width: 99%;
-                    background-color: transparent;
-                    border: none;
-                    font-size: 1.2em;
-                    font-weight: bold;
-                    text-transform: capitalize;
-                    cursor: pointer;
-                    text-align: left;
-                    padding: $spacing-tiny;
-                    border-bottom: 1px solid transparent;
-                    &:hover {
-                       border-bottom: 1px solid gray;
-                    }
-                }
-            }
-        }
+  }
+  .search {
+    width: 95%;
+    position: relative;
+    input {
+      width: 95%;
+      padding: $spacing-tiny;
+      border: none;
+      border-radius: $rounded-tiny;
+      font-size: 1.2em;
     }
+  }
 }

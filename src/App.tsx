@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { SearchBox } from "./components/SearchBox";
 import axios from "axios";
 import { PokemonsListItem } from "./interfaces/PokemonsListItem";
-import { serialize } from "v8";
 import { Pokemon } from "./interfaces/Pokemon";
 import { ResultScreen } from "./components/ResultScreen";
 
@@ -20,21 +19,19 @@ const getPokemon = (url: string): Promise<Pokemon> => {
 };
 
 function App(): React.ReactElement {
-  const [pokemonsList, setPokemonsList] = useState<PokemonsListItem[]>();
+  const [pokemonsList, setPokemonsList] = useState<PokemonsListItem[]|null>(null);
   const [pokemonsSearchResults, setPokemonsSearchResults] =
-    useState<PokemonsListItem[]>();
-  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>();
+    useState<PokemonsListItem[]| null>(null);
+  const [selectedPokemon, setSelectedPokemon] = useState<Pokemon|null>(null);
   // get all pokemons
   useEffect(() => {
     getAllPokemons().then((data) => setPokemonsList(data));
   }, []);
   // search pokemon function
-  const searchPokemon = (
+  const handlePokemonSearch = (
     event: React.SyntheticEvent<HTMLInputElement>
   ): void => {
     let results: PokemonsListItem[] = [];
-    event.preventDefault();
-    event.stopPropagation();
     const search = event.currentTarget.value;
     if (search.length > 2) {
       pokemonsList?.forEach((pokemon) => {
@@ -43,24 +40,31 @@ function App(): React.ReactElement {
         }
       });
       setPokemonsSearchResults(results);
+    } else {
+      setPokemonsSearchResults(null)
     }
   };
     // will call PokemonApi with tthe selected pokemon
-  const selectPokemon = (event: React.SyntheticEvent, url: string): void => {
-    event.preventDefault();
-    event.stopPropagation();
+  const handlePokemonClick = (_event: React.SyntheticEvent, url: string): void => {
     getPokemon(url)
       .then((data) => setSelectedPokemon(data))
-      .then(() => setPokemonsSearchResults([]));
+      .then(() => setPokemonsSearchResults(null));
   };
+  console.log(selectedPokemon)
   return (
     <>
-    <SearchBox
-      search={searchPokemon}
-      results={pokemonsSearchResults}
-      clickResult={selectPokemon}
-    />
-    <ResultScreen pokemon={selectedPokemon} />
+    {
+      pokemonsList ? (
+      <>
+      <SearchBox
+        handlePokemonSearch={handlePokemonSearch}
+        results={pokemonsSearchResults}
+        handlePokemonClick={handlePokemonClick}
+      />
+      <ResultScreen pokemon={selectedPokemon} />
+      </>
+      ) : <p>Error loading pokemons</p>
+    }
     </>
   );
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 import { PokemonSpecies } from "../interfaces/PokemonSpecies";
 
 interface ResultScreenProps {
-  pokemon?: Pokemon;
+  pokemon: Pokemon | null;
 }
 
 const getSpecies = (url: string): Promise<PokemonSpecies> => {
@@ -15,38 +15,35 @@ const getSpecies = (url: string): Promise<PokemonSpecies> => {
 };
 
 export const ResultScreen = ({ pokemon }: ResultScreenProps) => {
-  const [specie, setSpecie] = useState<PokemonSpecies>();
+  const [specie, setSpecie] = useState<PokemonSpecies | null>(null);
 
   useEffect(() => {
     if (pokemon?.species.url) {
       getSpecies(pokemon?.species.url).then((data) => setSpecie(data));
     }
   }, [pokemon]);
+  const pokemonDescription = specie?.flavor_text_entries?.find(
+    (text) => text.language.name === "es"
+  )?.flavor_text;
+  const errorMessage = "Error getting pokemon description";
+  console.log(specie);
   return (
     <section className="result">
       {pokemon ? (
-        <article className="result__card">
-          <div className="result__card__image">
-            <figure>
-              <img
-                src={pokemon.sprites.other?.["official-artwork"].front_default}
-                alt={pokemon.name}
-              />
-            </figure>
+        <article className="card">
+          <div className="card-image">
+            <img
+              src={pokemon.sprites.other?.["official-artwork"].front_default}
+              alt={pokemon.name}
+            />
             <p>{pokemon.name}</p>
           </div>
           <div>
-            <p>
-              {
-                specie?.flavor_text_entries?.find(
-                  (text) => text.language.name === "es"
-                )?.flavor_text
-              }
-            </p>
+            <p>{specie ? pokemonDescription : errorMessage}</p>
           </div>
         </article>
       ) : (
-        <div>Search a Pokemon</div>
+        <p className="initial-message">Search a Pokemon...</p>
       )}
     </section>
   );

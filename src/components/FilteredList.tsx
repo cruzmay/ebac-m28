@@ -3,16 +3,16 @@ import { PokemonsListItem } from "../interfaces/PokemonsListItem";
 
 interface FilteredListProps {
   results: PokemonsListItem[];
-  clickResult: (event: React.SyntheticEvent, url: string) => void;
+  handlePokemonClick: (event: React.SyntheticEvent, url: string) => void;
 }
 
-export const FilteredList = ({ results, clickResult }: FilteredListProps) => {
+export const FilteredList = ({ results, handlePokemonClick }: FilteredListProps) => {
   return (
-    <div className="nav__filtered-list__container">
-      <ul className="nav__filtered-list__list">
+    <div className="filters">
+      <ul className="list">
         {results.map((item) => (
-          <li key={item.name} className="nav__filtered-list__list__item">
-            <button onClick={(event) => clickResult(event, item.url)}>
+          <li key={item.name} className="list-item">
+            <button onClick={(event) => handlePokemonClick(event, item.url)}>
               {item.name}
             </button>
           </li>
