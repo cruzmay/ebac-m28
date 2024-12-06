@@ -50,7 +50,6 @@ function App(): React.ReactElement {
       .then((data) => setSelectedPokemon(data))
       .then(() => setPokemonsSearchResults(null));
   };
-  console.log(selectedPokemon)
   return (
     <>
     {

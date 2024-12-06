@@ -26,7 +26,6 @@ export const ResultScreen = ({ pokemon }: ResultScreenProps) => {
     (text) => text.language.name === "es"
   )?.flavor_text;
   const errorMessage = "Error getting pokemon description";
-  console.log(specie);
   return (
     <section className="result">
       {pokemon ? (
