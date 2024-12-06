@@ -42,7 +42,7 @@ export const ResultScreen = ({ pokemon }: ResultScreenProps) => {
           </div>
         </article>
       ) : (
-        <p className="initial-message">Search a Pokemon...</p>
+        <p className="initial-message">Search a Pokemon</p>
       )}
     </section>
   );
